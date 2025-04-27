@@ -137,6 +137,33 @@ const getRecruiter = async (req, res) => {
     }
 }
 
+const getRecruiters = async (req, res) => {
+
+    try {
+
+        const recruiters = await Recruiter.find()
+
+        if (!recruiters || recruiters.length <= 0) {
+            return res.status(200).json({
+                status: 'error',
+                message: 'No hay recruiters para mostrar'
+            })
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Recruiters',
+            recruiters
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Error en la consulta'
+        })
+    }
+}
+
 const uploadAvatar = async (req, res) => {
     const id = req.params.id
 
@@ -211,6 +238,36 @@ const getAvatar = (req, res) => {
     })
 }
 
+const deleteRecruiter = async (req, res) => {
+    const id = req.params.id
+
+    try {
+
+        const recruiter = await Recruiter.findByIdAndDelete({
+            _id: id
+        })
+
+        if (!recruiter) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'No existe el recruiter',
+            })
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Recruiter eliminado satisfactoriamente',
+            recruiter
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Error en la consulta' + error.message
+        })
+    }
+}
+
 const update = async (req, res) => {
 
     const id = req.params.id
@@ -256,5 +313,7 @@ module.exports = {
     uploadAvatar,
     getAvatar,
     getRecruiter,
-    update
+    update,
+    getRecruiters,
+    deleteRecruiter
 }

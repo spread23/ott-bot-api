@@ -96,6 +96,39 @@ const getUser = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    const id = req.params.id;
+    const params = req.body;
+
+    try {
+
+        const userFound = await User.findByIdAndUpdate({
+            _id: id
+        }, params, { new: true })
+
+        if (!userFound) {
+
+            return res.status(400).json({
+                status: 'error',
+                message: 'No existe el user con ese id'
+            })
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Archivo subido de manera exitosa',
+            recruiter: userFound
+        })
+
+    } catch (error) {
+
+        return res.status(400).json({
+            status: 'error',
+            message: 'Error en la consulta' + error.message
+        })
+    }
+}
+
 const uploadPdf = async (req, res) => {
     const id = req.params.id
 
@@ -343,6 +376,36 @@ const deleteFav = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    const id = req.params.id
+
+    try {
+
+        const user = await User.findByIdAndDelete({
+            _id: id
+        })
+
+        if (!user) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'No existe el user',
+            })
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'User eliminado satisfactoriamente',
+            user
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Error en la consulta' + error.message
+        })
+    }
+}
+
 module.exports = {
     testUser,
     register,
@@ -354,5 +417,7 @@ module.exports = {
     getUser,
     addToFav,
     getFav,
-    deleteFav
+    deleteFav,
+    update,
+    deleteUser
 }

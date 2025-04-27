@@ -18,5 +18,7 @@ router.get('/get-user/:id', check.auth, UserController.getUser)
 router.put('/add-fav/:id_recruiter/:id_user', check.auth, UserController.addToFav)
 router.get('/get-fav/:id', check.auth, UserController.getFav)
 router.put('/delete-fav/:id_recruiter/:id_user', check.auth, UserController.deleteFav)
+router.put('/update-user/:id', check.auth, UserController.update)
+router.delete('/delete-user/:id', check.auth, UserController.deleteUser)
 
 module.exports = router

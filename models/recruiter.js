@@ -21,6 +21,18 @@ const RecruiterSchema = Schema({
         type: String,
         required: true
     },
+    suscription: {
+        type: String,
+        default: 'Null'
+    },
+    vacants: {
+        type: Number,
+        default: 0
+    },
+    login: {
+        type: String,
+        default: 'Null'
+    },
     avatar: {
         type: String,
         default: 'avatar.png'

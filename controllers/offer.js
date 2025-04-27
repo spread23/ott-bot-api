@@ -155,6 +155,33 @@ const postOffer = async (req, res) => {
     }
 }
 
+const getJustOffers = async (req, res) => {
+
+    try {
+
+        const offers = await Offer.find()
+
+        if (!offers || offers.length <= 0) {
+            return res.status(200).json({
+                status: 'error',
+                message: 'No hay ofertas para mostrar'
+            })
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Offers',
+            offers
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Error en la consulta'
+        })
+    }
+}
+
 const deletePost = async (req, res) => {
     const idOffer = req.params.id_offer
     const idUser = req.params.id_user
@@ -194,5 +221,6 @@ module.exports = {
     getOffer,
     deleteOffer,
     postOffer,
-    deletePost
+    deletePost,
+    getJustOffers
 }

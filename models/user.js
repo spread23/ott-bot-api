@@ -33,6 +33,30 @@ const UserSchema = Schema({
         type: String,
         default: 'video.mp4'
     },
+    retail: {
+        type: String,
+        default: 'No'
+    },
+    turnos: {
+        type: String,
+        default: 'No'
+    },
+    sundays: {
+        type: String,
+        default: 'No'
+    },
+    holidays: {
+        type: String,
+        default: 'No'
+    },
+    whitecard: {
+        type: String,
+        default: 'No'
+    },
+    greencard: {
+        type: String,
+        default: 'No'
+    },
     recruiter: [{
         type: Schema.Types.ObjectId,
         ref: 'Recruiter'
